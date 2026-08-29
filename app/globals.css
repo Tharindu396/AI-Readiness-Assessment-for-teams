@@ -4,18 +4,144 @@
 
 @layer base {
   html {
-    color-scheme: light;
+    color-scheme: dark;
   }
 
   body {
     @apply bg-paper text-ink-900 antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99,102,241,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139,92,246,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 30% at 10% 80%, rgba(6,182,212,0.05) 0%, transparent 50%);
+    background-attachment: fixed;
   }
 
   ::selection {
-    @apply bg-accent-100 text-accent-700;
+    @apply bg-accent-600/40 text-white;
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-accent-500 ring-offset-2 ring-offset-paper;
+    @apply outline-none ring-2 ring-accent-500/60 ring-offset-2 ring-offset-paper;
+  }
+
+  /* Custom scrollbar for dark theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.12);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.2);
+  }
+}
+
+@layer components {
+  /* Glassmorphic card surface */
+  .glass-card {
+    @apply rounded-xl border border-surface-border bg-surface backdrop-blur-[16px];
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .glass-card:hover {
+    @apply border-surface-border-hover;
+  }
+
+  /* Interactive glass card with lift */
+  .glass-card-interactive {
+    @apply glass-card;
+  }
+  .glass-card-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.08);
+  }
+
+  /* Gradient text utility */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #818CF8, #A78BFA, #22D3EE);
+  }
+  .gradient-text-warm {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #F59E0B, #EF4444);
+  }
+
+  /* Gradient border glow */
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(99,102,241,0.4), rgba(139,92,246,0.2), rgba(6,182,212,0.3));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .gradient-border:hover::before {
+    opacity: 1;
+  }
+
+  /* Shimmer skeleton */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0.04) 0%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(255,255,255,0.04) 100%
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer rounded-lg;
+  }
+
+  /* Floating orb accents */
+  .accent-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    @apply animate-glow-pulse;
+  }
+
+  /* Glow shadow utilities */
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(99,102,241,0.15), 0 0 60px rgba(99,102,241,0.08);
+  }
+  .glow-accent-strong {
+    box-shadow: 0 0 30px rgba(99,102,241,0.25), 0 0 80px rgba(99,102,241,0.12);
+  }
+  .glow-warning {
+    box-shadow: 0 0 20px rgba(245,158,11,0.15), 0 0 60px rgba(245,158,11,0.08);
+  }
+
+  /* Stagger animation delay utilities */
+  .stagger-1 { animation-delay: 50ms; animation-fill-mode: both; }
+  .stagger-2 { animation-delay: 100ms; animation-fill-mode: both; }
+  .stagger-3 { animation-delay: 150ms; animation-fill-mode: both; }
+  .stagger-4 { animation-delay: 200ms; animation-fill-mode: both; }
+  .stagger-5 { animation-delay: 250ms; animation-fill-mode: both; }
+  .stagger-6 { animation-delay: 300ms; animation-fill-mode: both; }
+}
+
+@layer utilities {
+  /* Gradient backgrounds */
+  .bg-gradient-accent {
+    background: linear-gradient(135deg, #4F46E5, #7C3AED, #06B6D4);
+  }
+  .bg-gradient-accent-subtle {
+    background: linear-gradient(135deg, rgba(79,70,229,0.15), rgba(124,58,237,0.1));
+  }
+  .bg-gradient-warning {
+    background: linear-gradient(135deg, #F59E0B, #EF4444);
   }
 }

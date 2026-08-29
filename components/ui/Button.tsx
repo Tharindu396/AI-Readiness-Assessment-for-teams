@@ -4,14 +4,14 @@ type Variant = "primary" | "secondary";
 
 const VARIANT_STYLES: Record<Variant, string> = {
   primary:
-    "bg-accent-600 text-white hover:bg-accent-700 disabled:bg-ink-200 disabled:text-ink-500",
+    "bg-gradient-accent text-white shadow-lg shadow-accent-600/20 hover:shadow-accent-600/40 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:shadow-none disabled:hover:scale-100",
   secondary:
-    "border border-ink-200 text-ink-900 hover:bg-ink-50 disabled:text-ink-300 disabled:hover:bg-transparent",
+    "border border-surface-border bg-surface text-ink-900 backdrop-blur-[16px] hover:border-surface-border-hover hover:bg-surface-hover disabled:opacity-40 disabled:hover:bg-surface disabled:hover:border-surface-border",
 };
 
 /** Shared class string so Link elements can match <Button> styling exactly. */
 export function buttonClass(variant: Variant = "primary", className = "") {
-  return `inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium transition-colors disabled:cursor-not-allowed ${VARIANT_STYLES[variant]} ${className}`;
+  return `inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-all duration-200 disabled:cursor-not-allowed ${VARIANT_STYLES[variant]} ${className}`;
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

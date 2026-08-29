@@ -2,14 +2,14 @@ import Link from "next/link";
 
 export function DemoBanner({ clearHref }: { clearHref: string }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-accent-200 bg-accent-50 px-6 py-4 text-sm text-accent-700">
+    <div className="animate-fade-slide-in flex flex-wrap items-center justify-between gap-3 rounded-xl border border-accent-500/20 bg-accent-500/10 px-6 py-4 text-sm text-accent-200 backdrop-blur-[16px]">
       <p>
-        <span className="font-medium">You&apos;re viewing sample data.</span> This is a
-        realistic example org, not anything from your account.
+        <span className="font-semibold text-accent-200">You&apos;re viewing sample data.</span>{" "}
+        This is a realistic example org, not anything from your account.
       </p>
       <Link
         href={clearHref}
-        className="shrink-0 rounded-md border border-accent-200 bg-white px-3 py-1.5 font-medium text-accent-700 hover:bg-accent-100"
+        className="shrink-0 rounded-lg border border-accent-500/30 bg-accent-500/10 px-4 py-2 font-medium text-accent-200 transition-all duration-200 hover:bg-accent-500/20 hover:border-accent-500/50"
       >
         Clear sample data
       </Link>

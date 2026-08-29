@@ -10,7 +10,10 @@ interface ScoreMeterProps {
 /** A labeled horizontal meter. Fill is warning-colored below 40 (Nascent) to flag risk areas, accent otherwise. */
 export function ScoreMeter({ label, score, compact = false }: ScoreMeterProps) {
   const isLow = score < 40;
-  const fillColor = isLow ? "bg-warning-500" : "bg-accent-500";
+  const fillGradient = isLow
+    ? "bg-gradient-to-r from-amber-500 to-red-500"
+    : "bg-gradient-to-r from-indigo-500 to-violet-500";
+  const glowColor = isLow ? "shadow-[0_0_8px_rgba(245,158,11,0.3)]" : "shadow-[0_0_8px_rgba(99,102,241,0.3)]";
   const clamped = Math.max(0, Math.min(100, score));
 
   return (
@@ -22,17 +25,17 @@ export function ScoreMeter({ label, score, compact = false }: ScoreMeterProps) {
         <span className="w-24 shrink-0 text-sm text-ink-700 sm:w-40">{label}</span>
       )}
       <div
-        className={`relative grow overflow-hidden bg-ink-100 ${compact ? "h-1.5 rounded-sm" : "h-2 rounded-sm"}`}
+        className={`relative grow overflow-hidden rounded-full bg-ink-100/60 ${compact ? "h-1.5" : "h-2.5"}`}
         role="img"
         aria-label={`${label}: ${formatScore(score)} out of 100`}
       >
         <div
-          className={`absolute inset-y-0 left-0 rounded-r-sm ${fillColor}`}
+          className={`absolute inset-y-0 left-0 rounded-full ${fillGradient} ${glowColor} animate-meter-fill`}
           style={{ width: `${clamped}%` }}
         />
       </div>
       {!compact && (
-        <span className="w-8 shrink-0 text-right text-sm tabular-nums text-ink-900">
+        <span className="w-8 shrink-0 text-right text-sm font-medium tabular-nums text-ink-900">
           {formatScore(score)}
         </span>
       )}

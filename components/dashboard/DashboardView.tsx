@@ -25,10 +25,10 @@ export function DashboardView({
 
   return (
     <main className="mx-auto max-w-page space-y-8 px-6 py-10 sm:px-10 sm:py-14">
-      <div>
-        <p className="text-sm font-medium text-accent-600">{orgName}</p>
-        <h1 className="mt-1 font-serif text-2xl text-ink-950 sm:text-3xl">
-          AI readiness dashboard
+      <div className="animate-fade-slide-in">
+        <p className="text-sm font-semibold uppercase tracking-widest text-accent-200">{orgName}</p>
+        <h1 className="mt-2 font-serif text-2xl sm:text-3xl">
+          <span className="gradient-text">AI readiness dashboard</span>
         </h1>
       </div>
 
@@ -38,17 +38,25 @@ export function DashboardView({
         <EmptyState inviteUrl={inviteUrl ?? ""} demoHref={demoHref} />
       ) : (
         <>
-          <OrgScoreHero
-            orgOverall={dashboard.orgOverall as number}
-            orgBand={dashboard.orgBand!}
-            totalResponses={dashboard.totalResponses}
-            totalHeadcount={dashboard.totalHeadcount}
-            totalTeams={dashboard.teams.filter((t) => t.responseCount > 0).length}
-            participation={dashboard.participation}
-          />
-          <DimensionBreakdown scores={dashboard.orgDimensionScores!} />
-          <TeamTable teams={dashboard.teams} />
-          <RecommendationList recommendations={dashboard.recommendations} />
+          <div className="animate-slide-up stagger-1">
+            <OrgScoreHero
+              orgOverall={dashboard.orgOverall as number}
+              orgBand={dashboard.orgBand!}
+              totalResponses={dashboard.totalResponses}
+              totalHeadcount={dashboard.totalHeadcount}
+              totalTeams={dashboard.teams.filter((t) => t.responseCount > 0).length}
+              participation={dashboard.participation}
+            />
+          </div>
+          <div className="animate-slide-up stagger-2">
+            <DimensionBreakdown scores={dashboard.orgDimensionScores!} />
+          </div>
+          <div className="animate-slide-up stagger-3">
+            <TeamTable teams={dashboard.teams} />
+          </div>
+          <div className="animate-slide-up stagger-4">
+            <RecommendationList recommendations={dashboard.recommendations} />
+          </div>
         </>
       )}
     </main>

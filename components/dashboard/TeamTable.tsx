@@ -7,7 +7,7 @@ import { ScoreMeter } from "@/components/ui/ScoreMeter";
 
 function AnonymityPlaceholder({ responsesNeeded }: { responsesNeeded: number }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-ink-50 px-2.5 py-1 text-xs text-ink-500">
+    <span className="inline-flex items-center rounded-full bg-surface px-2.5 py-1 text-xs text-ink-500 backdrop-blur-[16px]">
       {responsesNeeded} more response{responsesNeeded === 1 ? "" : "s"} needed
     </span>
   );
@@ -27,10 +27,10 @@ function MiniDimensionBars({ scores }: { scores: Record<string, number> }) {
 
 export function TeamTable({ teams }: { teams: TeamDashboardRow[] }) {
   return (
-    <div className="rounded-lg border border-ink-200">
-      <div className="border-b border-ink-200 p-6 sm:p-8 sm:pb-6">
+    <div className="glass-card overflow-hidden">
+      <div className="border-b border-surface-border p-6 sm:p-8 sm:pb-6">
         <h2 className="font-serif text-xl text-ink-950">Teams</h2>
-        <p className="mt-1 text-sm text-ink-500">
+        <p className="mt-1.5 text-sm text-ink-500">
           Scores are hidden until a team has 3 or more responses, to keep individual answers anonymous.
         </p>
       </div>
@@ -38,16 +38,16 @@ export function TeamTable({ teams }: { teams: TeamDashboardRow[] }) {
       {/* Desktop / tablet: table */}
       <table className="hidden w-full md:table">
         <thead>
-          <tr className="border-b border-ink-200 text-left text-xs font-medium uppercase tracking-wide text-ink-500">
-            <th className="px-8 py-3 font-medium">Team</th>
-            <th className="px-4 py-3 font-medium">Responses</th>
-            <th className="px-4 py-3 font-medium">Score</th>
-            <th className="px-4 py-3 pr-8 font-medium">Dimensions</th>
+          <tr className="border-b border-surface-border text-left text-xs font-semibold uppercase tracking-wider text-ink-500">
+            <th className="px-8 py-3.5 font-semibold">Team</th>
+            <th className="px-4 py-3.5 font-semibold">Responses</th>
+            <th className="px-4 py-3.5 font-semibold">Score</th>
+            <th className="px-4 py-3.5 pr-8 font-semibold">Dimensions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-ink-100">
+        <tbody className="divide-y divide-surface-border/50">
           {teams.map((team) => (
-            <tr key={team.id}>
+            <tr key={team.id} className="transition-colors hover:bg-surface-hover">
               <td className="px-8 py-4">
                 <p className="text-sm font-medium text-ink-900">{team.name}</p>
                 <p className="text-xs text-ink-500">{team.headcount} people</p>
@@ -58,7 +58,7 @@ export function TeamTable({ teams }: { teams: TeamDashboardRow[] }) {
               <td className="px-4 py-4">
                 {team.meetsFloor && team.overall !== null && team.band !== null ? (
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium tabular-nums text-ink-900">
+                    <span className="text-sm font-semibold tabular-nums text-ink-900">
                       {formatScore(team.overall)}
                     </span>
                     <BandBadge band={team.band} />
@@ -80,9 +80,9 @@ export function TeamTable({ teams }: { teams: TeamDashboardRow[] }) {
       </table>
 
       {/* Mobile: cards, never a horizontally-scrolling table */}
-      <ul className="divide-y divide-ink-100 md:hidden">
+      <ul className="divide-y divide-surface-border/50 md:hidden">
         {teams.map((team) => (
-          <li key={team.id} className="p-6">
+          <li key={team.id} className="p-6 transition-colors hover:bg-surface-hover">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="text-sm font-medium text-ink-900">{team.name}</p>

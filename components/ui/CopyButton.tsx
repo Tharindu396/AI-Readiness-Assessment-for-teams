@@ -25,9 +25,13 @@ export function CopyButton({
     <button
       type="button"
       onClick={handleCopy}
-      className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-md border border-ink-200 bg-paper px-4 py-2 text-sm font-medium text-ink-900 transition-colors hover:border-ink-300 hover:bg-ink-50"
+      className={`inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-200 ${
+        copied
+          ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400 shadow-[0_0_16px_rgba(34,197,94,0.15)]"
+          : "border-surface-border bg-surface text-ink-900 backdrop-blur-[16px] hover:border-surface-border-hover hover:bg-surface-hover"
+      }`}
     >
-      <span aria-live="polite">{copied ? "Copied" : label}</span>
+      <span aria-live="polite">{copied ? "✓ Copied" : label}</span>
     </button>
   );
 }

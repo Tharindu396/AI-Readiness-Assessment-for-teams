@@ -65,16 +65,21 @@ export function CreateAssessmentForm() {
         : dashboardHref;
 
     return (
-      <div className="animate-fade-slide-in rounded-lg border border-ink-200 p-6 sm:p-8">
-        <h2 className="font-serif text-xl text-ink-950">
-          {created.orgName} is ready
-        </h2>
-        <p className="mt-2 text-sm text-warning-700">
+      <div className="glass-card animate-scale-in glow-accent p-6 sm:p-8">
+        <div className="flex items-center gap-3">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400">
+            ✓
+          </span>
+          <h2 className="font-serif text-xl text-ink-950">
+            {created.orgName} is ready
+          </h2>
+        </div>
+        <p className="mt-3 text-sm text-amber-400/90">
           Save these links now — there are no accounts, so this is the only time
           they&apos;re shown.
         </p>
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-6 space-y-5">
           <div>
             <p className="text-sm font-medium text-ink-900">Invite link — share with your team</p>
             <div className="mt-2 flex flex-col gap-2 sm:flex-row">
@@ -83,7 +88,7 @@ export function CreateAssessmentForm() {
                 aria-label="Invite link"
                 value={respondentUrl}
                 onFocus={(e) => e.currentTarget.select()}
-                className="w-full rounded-md border border-ink-200 bg-ink-50 px-3 py-2 text-sm text-ink-700"
+                className="w-full rounded-lg border border-surface-border bg-ink-50/50 px-3 py-2.5 text-sm text-ink-700 backdrop-blur-[16px]"
               />
               <CopyButton value={respondentUrl} />
             </div>
@@ -97,22 +102,22 @@ export function CreateAssessmentForm() {
                 aria-label="Admin dashboard link"
                 value={dashboardUrl}
                 onFocus={(e) => e.currentTarget.select()}
-                className="w-full rounded-md border border-ink-200 bg-ink-50 px-3 py-2 text-sm text-ink-700"
+                className="w-full rounded-lg border border-surface-border bg-ink-50/50 px-3 py-2.5 text-sm text-ink-700 backdrop-blur-[16px]"
               />
               <CopyButton value={dashboardUrl} />
             </div>
           </div>
         </div>
 
-        <Link href={dashboardHref} className={buttonClass("primary", "mt-6")}>
-          Go to dashboard
+        <Link href={dashboardHref} className={buttonClass("primary", "mt-8")}>
+          Go to dashboard →
         </Link>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-lg border border-ink-200 p-6 sm:p-8">
+    <form onSubmit={handleSubmit} className="glass-card p-6 sm:p-8">
       <div>
         <label htmlFor="org-name" className="text-sm font-medium text-ink-900">
           Organization name
@@ -123,22 +128,22 @@ export function CreateAssessmentForm() {
           value={orgName}
           onChange={(e) => setOrgName(e.target.value)}
           placeholder="Acme Robotics"
-          className="mt-2 w-full rounded-md border border-ink-200 px-3 py-2 text-sm text-ink-900 placeholder:text-ink-300"
+          className="mt-2 w-full rounded-lg border border-surface-border bg-ink-50/50 px-3 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 backdrop-blur-[16px] transition-colors focus:border-accent-500/40 focus:bg-ink-50/70"
         />
       </div>
 
       <div className="mt-6">
         <p className="text-sm font-medium text-ink-900">Teams</p>
-        <div className="mt-2 space-y-3">
+        <div className="mt-3 space-y-3">
           {teams.map((team, index) => (
-            <div key={index} className="flex items-start gap-3">
+            <div key={index} className="flex items-start gap-3 animate-fade-slide-in">
               <input
                 required
                 aria-label={`Team ${index + 1} name`}
                 value={team.name}
                 onChange={(e) => updateTeam(index, { name: e.target.value })}
                 placeholder="Team name"
-                className="w-full rounded-md border border-ink-200 px-3 py-2 text-sm text-ink-900 placeholder:text-ink-300"
+                className="w-full rounded-lg border border-surface-border bg-ink-50/50 px-3 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 backdrop-blur-[16px] transition-colors focus:border-accent-500/40 focus:bg-ink-50/70"
               />
               <input
                 required
@@ -148,14 +153,14 @@ export function CreateAssessmentForm() {
                 value={team.headcount}
                 onChange={(e) => updateTeam(index, { headcount: e.target.value })}
                 placeholder="Headcount"
-                className="w-32 rounded-md border border-ink-200 px-3 py-2 text-sm text-ink-900 placeholder:text-ink-300"
+                className="w-32 rounded-lg border border-surface-border bg-ink-50/50 px-3 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 backdrop-blur-[16px] transition-colors focus:border-accent-500/40 focus:bg-ink-50/70"
               />
               {teams.length > 1 && (
                 <button
                   type="button"
                   onClick={() => removeTeam(index)}
                   aria-label={`Remove ${team.name || "team"}`}
-                  className="shrink-0 px-2 py-2 text-sm text-ink-500 hover:text-warning-700"
+                  className="shrink-0 rounded-lg px-2 py-2.5 text-sm text-ink-500 transition-colors hover:bg-red-500/10 hover:text-red-400"
                 >
                   Remove
                 </button>
@@ -166,13 +171,17 @@ export function CreateAssessmentForm() {
         <button
           type="button"
           onClick={() => setTeams((prev) => [...prev, emptyTeam()])}
-          className="mt-3 text-sm font-medium text-accent-600 hover:text-accent-700"
+          className="mt-3 text-sm font-medium text-accent-200 transition-colors hover:text-accent-500"
         >
           + Add another team
         </button>
       </div>
 
-      {error && <p className="mt-4 text-sm text-warning-700">{error}</p>}
+      {error && (
+        <p className="mt-4 rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-400">
+          {error}
+        </p>
+      )}
 
       <Button type="submit" disabled={submitting} className="mt-6">
         {submitting ? "Creating…" : "Create assessment"}
